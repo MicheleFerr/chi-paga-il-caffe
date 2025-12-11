@@ -96,33 +96,34 @@
 	<div class="container game-screen">
 		<div class="turn-counter">Turno {$gameStore.turns + 1}</div>
 
-		<div class="range-display fade-in">
-			<span class="range-num">{$gameStore.min}</span>
-			<span class="range-separator">—</span>
-			<span class="range-num">{$gameStore.max}</span>
+		<div class="game-layout">
+			<!-- MAX in alto -->
+			<div class="range-num range-max fade-in">{$gameStore.max}</div>
+
+			<!-- Input al centro -->
+			<form onsubmit={handleSubmit} class="guess-form">
+				<input
+					type="number"
+					bind:value={guess}
+					class="guess-input"
+					class:shake={shaking}
+					placeholder="???"
+					inputmode="numeric"
+					autocomplete="off"
+				/>
+
+				{#if error}
+					<p class="error-msg">{error}</p>
+				{/if}
+
+				<button type="submit" class="btn btn-primary submit-btn">
+					PROVA
+				</button>
+			</form>
+
+			<!-- MIN in basso -->
+			<div class="range-num range-min fade-in">{$gameStore.min}</div>
 		</div>
-
-		<p class="instruction">Scegli un numero in questo range</p>
-
-		<form onsubmit={handleSubmit} class="guess-form">
-			<input
-				type="number"
-				bind:value={guess}
-				class="guess-input"
-				class:shake={shaking}
-				placeholder="???"
-				inputmode="numeric"
-				autocomplete="off"
-			/>
-
-			{#if error}
-				<p class="error-msg">{error}</p>
-			{/if}
-
-			<button type="submit" class="btn btn-primary submit-btn">
-				PROVA
-			</button>
-		</form>
 
 		<a href="/" class="quit-link" onclick={goHome}>Abbandona</a>
 	</div>
@@ -130,7 +131,7 @@
 
 <style>
 	.game-screen {
-		gap: 1rem;
+		gap: 0.5rem;
 	}
 
 	.turn-counter {
@@ -138,39 +139,40 @@
 		color: var(--text-secondary);
 		text-transform: uppercase;
 		letter-spacing: 0.1em;
+		margin-bottom: 0.5rem;
 	}
 
-	.range-display {
+	.game-layout {
 		display: flex;
+		flex-direction: column;
 		align-items: center;
-		gap: 1rem;
-		margin: 1rem 0;
+		justify-content: center;
+		gap: 1.5rem;
+		flex: 1;
+		width: 100%;
+		max-width: 320px;
 	}
 
 	.range-num {
-		font-size: 3rem;
+		font-size: 4rem;
 		font-weight: 800;
+		line-height: 1;
+	}
+
+	.range-max {
 		color: var(--accent);
 	}
 
-	.range-separator {
-		font-size: 2rem;
-		color: var(--text-secondary);
-	}
-
-	.instruction {
-		color: var(--text-secondary);
-		font-size: 0.9rem;
-		margin-bottom: 1rem;
+	.range-min {
+		color: var(--coffee);
 	}
 
 	.guess-form {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 1rem;
+		gap: 0.75rem;
 		width: 100%;
-		max-width: 280px;
 	}
 
 	.guess-input {
