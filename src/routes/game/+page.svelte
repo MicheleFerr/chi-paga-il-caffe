@@ -216,9 +216,10 @@
 	}
 
 	.range-num {
-		font-size: 4rem;
+		font-size: 5.5rem;
 		font-weight: 800;
 		line-height: 1;
+		text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 	}
 
 	.guess-form {
