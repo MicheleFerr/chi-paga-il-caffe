@@ -4,6 +4,9 @@
 	import Confetti from '$lib/components/Confetti.svelte';
 	import Trident from '$lib/components/Trident.svelte';
 	import { onMount } from 'svelte';
+	import { fly, scale } from 'svelte/transition';
+
+	let rangeKey = $state(0); // Per triggerare animazione
 
 	let guess = $state('');
 	let error = $state('');
@@ -61,6 +64,9 @@
 			loseMessage = getRandomLoseMessage();
 			showLose = true;
 			vibrate();
+		} else {
+			// Triggera animazione smooth sui numeri
+			rangeKey++;
 		}
 
 		guess = '';
@@ -116,7 +122,11 @@
 			<Trident size={60} />
 
 			<!-- MAX in alto -->
-			<div class="range-num range-max fade-in">{$gameStore.max}</div>
+			{#key rangeKey}
+				<div class="range-num range-max" in:fly={{ y: -30, duration: 300 }} out:scale={{ duration: 150 }}>
+					{$gameStore.max}
+				</div>
+			{/key}
 
 			<!-- Input al centro -->
 			<form onsubmit={handleSubmit} class="guess-form">
@@ -140,7 +150,11 @@
 			</form>
 
 			<!-- MIN in basso -->
-			<div class="range-num range-min fade-in">{$gameStore.min}</div>
+			{#key rangeKey}
+				<div class="range-num range-min" in:fly={{ y: 30, duration: 300 }} out:scale={{ duration: 150 }}>
+					{$gameStore.min}
+				</div>
+			{/key}
 		</div>
 
 		<a href="/" class="quit-link" onclick={goHome}>Abbandona</a>
