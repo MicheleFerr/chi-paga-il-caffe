@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { gameStore, getRandomLoseMessage } from '$lib/stores/game';
 	import Confetti from '$lib/components/Confetti.svelte';
+	import Trident from '$lib/components/Trident.svelte';
 	import { onMount } from 'svelte';
 
 	let guess = $state('');
@@ -97,6 +98,9 @@
 		<div class="turn-counter">Turno {$gameStore.turns + 1}</div>
 
 		<div class="game-layout">
+			<!-- Tridente logo -->
+			<Trident size={60} />
+
 			<!-- MAX in alto -->
 			<div class="range-num range-max fade-in">{$gameStore.max}</div>
 
