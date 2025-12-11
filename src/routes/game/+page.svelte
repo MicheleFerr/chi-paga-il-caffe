@@ -4,9 +4,22 @@
 	import Confetti from '$lib/components/Confetti.svelte';
 	import Trident from '$lib/components/Trident.svelte';
 	import { onMount } from 'svelte';
-	import { fly, scale } from 'svelte/transition';
+	import { fly } from 'svelte/transition';
+	import { cubicOut } from 'svelte/easing';
 
 	let rangeKey = $state(0); // Per triggerare animazione
+
+	// Colori per difficoltà
+	const difficultyColors: Record<string, string> = {
+		easy: '#ffffff',
+		medium: '#ffffff',
+		hard: '#ff9500',
+		impossible: '#ff3b30'
+	};
+
+	function getRangeColor(): string {
+		return difficultyColors[$gameStore.difficulty || 'easy'] || '#ffffff';
+	}
 
 	let guess = $state('');
 	let error = $state('');
@@ -123,7 +136,11 @@
 
 			<!-- MAX in alto -->
 			{#key rangeKey}
-				<div class="range-num range-max" in:fly={{ y: -30, duration: 300 }} out:scale={{ duration: 150 }}>
+				<div
+					class="range-num"
+					style="color: {getRangeColor()}"
+					in:fly={{ y: -50, duration: 800, easing: cubicOut }}
+				>
 					{$gameStore.max}
 				</div>
 			{/key}
@@ -151,7 +168,11 @@
 
 			<!-- MIN in basso -->
 			{#key rangeKey}
-				<div class="range-num range-min" in:fly={{ y: 30, duration: 300 }} out:scale={{ duration: 150 }}>
+				<div
+					class="range-num"
+					style="color: {getRangeColor()}"
+					in:fly={{ y: 50, duration: 800, easing: cubicOut }}
+				>
 					{$gameStore.min}
 				</div>
 			{/key}
@@ -189,31 +210,6 @@
 		font-size: 4rem;
 		font-weight: 800;
 		line-height: 1;
-	}
-
-	/* Colori default */
-	.range-max, .range-min {
-		color: white;
-	}
-
-	/* Facile/Medio - Bianco */
-	.diff-easy .range-max,
-	.diff-easy .range-min,
-	.diff-medium .range-max,
-	.diff-medium .range-min {
-		color: white;
-	}
-
-	/* Difficile - Arancio */
-	.diff-hard .range-max,
-	.diff-hard .range-min {
-		color: #ff9500;
-	}
-
-	/* Impossibile - Rosso */
-	.diff-impossible .range-max,
-	.diff-impossible .range-min {
-		color: #ff3b30;
 	}
 
 	.guess-form {
