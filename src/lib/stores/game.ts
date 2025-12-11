@@ -1,5 +1,13 @@
 import { writable, derived } from 'svelte/store';
 
+// Genera numero random crittograficamente sicuro
+function secureRandom(min: number, max: number): number {
+	const range = max - min;
+	const array = new Uint32Array(1);
+	crypto.getRandomValues(array);
+	return min + (array[0] % range);
+}
+
 export interface GameState {
 	secretNumber: number;
 	min: number;
@@ -9,12 +17,13 @@ export interface GameState {
 	lastGuess: number | null;
 }
 
-export type Difficulty = 'easy' | 'medium' | 'hard';
+export type Difficulty = 'easy' | 'medium' | 'hard' | 'impossible';
 
 export const difficulties: Record<Difficulty, { label: string; range: number; description: string }> = {
 	easy: { label: 'Facile', range: 100, description: '0 - 100' },
 	medium: { label: 'Medio', range: 1000, description: '0 - 1,000' },
-	hard: { label: 'Difficile', range: 10000, description: '0 - 10,000' }
+	hard: { label: 'Difficile', range: 10000, description: '0 - 10,000' },
+	impossible: { label: 'Impossibile', range: 100000, description: '0 - 100,000' }
 };
 
 function createGameStore() {
@@ -34,7 +43,7 @@ function createGameStore() {
 
 		startGame: (difficulty: Difficulty) => {
 			const range = difficulties[difficulty].range;
-			const secret = Math.floor(Math.random() * (range - 1)) + 1; // 1 to range-1
+			const secret = secureRandom(1, range); // 1 to range-1, crittograficamente sicuro
 			set({
 				secretNumber: secret,
 				min: 0,
