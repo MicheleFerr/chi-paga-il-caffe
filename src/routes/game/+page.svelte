@@ -11,14 +11,28 @@
 	let showLose = $state(false);
 	let loseMessage = $state('');
 
-	// Redirect if no game started
+	// Redirect if no game started + block back gesture
 	onMount(() => {
 		const unsubscribe = gameStore.subscribe(state => {
 			if (state.max === 1000 && state.min === 0 && state.turns === 0 && state.secretNumber === 0) {
 				goto('/difficulty');
 			}
 		});
-		return unsubscribe;
+
+		// Block back gesture - push fake state and intercept popstate
+		history.pushState(null, '', location.href);
+
+		const handlePopState = () => {
+			// Re-push state to prevent going back
+			history.pushState(null, '', location.href);
+		};
+
+		window.addEventListener('popstate', handlePopState);
+
+		return () => {
+			unsubscribe();
+			window.removeEventListener('popstate', handlePopState);
+		};
 	});
 
 	function handleSubmit(e: Event) {
