@@ -42,12 +42,13 @@
 		font-size: 1.25rem;
 		font-weight: 700;
 		margin-bottom: 0.25rem;
+		color: white;
 	}
 
 	.diff-range {
 		display: block;
 		font-size: 0.9rem;
-		color: var(--text-secondary);
+		color: rgba(255, 255, 255, 0.8);
 	}
 
 	.back-link {

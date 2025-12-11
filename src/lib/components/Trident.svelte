@@ -4,45 +4,69 @@
 
 <svg
 	width={size}
-	height={size}
+	height={size * 1.2}
 	viewBox="0 0 100 120"
 	fill="none"
 	xmlns="http://www.w3.org/2000/svg"
 	class="trident"
 >
-	<!-- Tridente con bordo dorato -->
+	<!-- Sfondo nero arrotondato -->
+	<rect x="5" y="0" width="90" height="115" rx="8" fill="#1a1a1a"/>
+
+	<!-- Punta sinistra -->
 	<path
-		d="M50 5 L50 85 M50 85 L35 85 L35 115 L65 115 L65 85 L50 85
-		   M20 5 L20 70 L35 70 L35 85
-		   M80 5 L80 70 L65 70 L65 85
-		   M50 5 L45 0 L50 5 L55 0 L50 5
-		   M20 5 L15 0 L20 5 L25 0 L20 5
-		   M80 5 L75 0 L80 5 L85 0 L80 5"
+		d="M22 20 L22 75 L35 75 L35 85 L35 75 L22 75"
 		stroke="#d4a574"
 		stroke-width="3"
 		fill="none"
 	/>
-	<!-- Riempimento rosso -->
 	<path
-		d="M47 8 L47 82 L38 82 L38 112 L62 112 L62 82 L53 82 L53 8 Z"
-		fill="#c94040"
+		d="M24 22 L24 73 L33 73 L33 22 Z"
+		fill="#b33a3a"
+	/>
+	<polygon points="28.5,8 20,25 37,25" fill="#b33a3a" stroke="#d4a574" stroke-width="2"/>
+
+	<!-- Punta centrale -->
+	<path
+		d="M43 20 L43 85 L57 85 L57 20"
+		stroke="#d4a574"
+		stroke-width="3"
+		fill="none"
 	/>
 	<path
-		d="M17 8 L17 67 L32 67 L32 82 L38 82 L38 67 L23 67 L23 8 Z"
-		fill="#c94040"
+		d="M45 22 L45 83 L55 83 L55 22 Z"
+		fill="#b33a3a"
+	/>
+	<polygon points="50,8 41,25 59,25" fill="#b33a3a" stroke="#d4a574" stroke-width="2"/>
+
+	<!-- Punta destra -->
+	<path
+		d="M78 20 L78 75 L65 75 L65 85 L65 75 L78 75"
+		stroke="#d4a574"
+		stroke-width="3"
+		fill="none"
 	/>
 	<path
-		d="M77 8 L77 67 L62 67 L62 82 L68 82 L68 67 L83 67 L83 8 Z"
-		fill="#c94040"
+		d="M76 22 L76 73 L67 73 L67 22 Z"
+		fill="#b33a3a"
 	/>
-	<!-- Punte -->
-	<polygon points="50,0 45,15 55,15" fill="#c94040" stroke="#d4a574" stroke-width="2"/>
-	<polygon points="20,0 15,15 25,15" fill="#c94040" stroke="#d4a574" stroke-width="2"/>
-	<polygon points="80,0 75,15 85,15" fill="#c94040" stroke="#d4a574" stroke-width="2"/>
+	<polygon points="71.5,8 63,25 80,25" fill="#b33a3a" stroke="#d4a574" stroke-width="2"/>
+
+	<!-- Base connettore -->
+	<path
+		d="M35 75 L35 85 L43 85 L43 100 L57 100 L57 85 L65 85 L65 75"
+		stroke="#d4a574"
+		stroke-width="3"
+		fill="none"
+	/>
+	<path
+		d="M37 77 L37 83 L45 83 L45 98 L55 98 L55 83 L63 83 L63 77 Z"
+		fill="#b33a3a"
+	/>
 </svg>
 
 <style>
 	.trident {
-		filter: drop-shadow(0 2px 8px rgba(212, 165, 116, 0.3));
+		filter: drop-shadow(0 2px 8px rgba(212, 165, 116, 0.4));
 	}
 </style>

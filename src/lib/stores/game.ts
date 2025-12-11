@@ -20,10 +20,10 @@ export interface GameState {
 export type Difficulty = 'easy' | 'medium' | 'hard' | 'impossible';
 
 export const difficulties: Record<Difficulty, { label: string; range: number; description: string }> = {
-	easy: { label: 'Facile', range: 100, description: '0 - 100' },
-	medium: { label: 'Medio', range: 1000, description: '0 - 1,000' },
-	hard: { label: 'Difficile', range: 10000, description: '0 - 10,000' },
-	impossible: { label: 'Impossibile', range: 100000, description: '0 - 100,000' }
+	easy: { label: 'Facile', range: 100, description: '100' },
+	medium: { label: 'Medio', range: 1000, description: '1.000' },
+	hard: { label: 'Difficile', range: 10000, description: '10.000' },
+	impossible: { label: 'Impossibile', range: 100000, description: '100.000' }
 };
 
 function createGameStore() {
