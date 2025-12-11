@@ -15,6 +15,7 @@ export interface GameState {
 	turns: number;
 	gameOver: boolean;
 	lastGuess: number | null;
+	difficulty: Difficulty | null;
 }
 
 export type Difficulty = 'easy' | 'medium' | 'hard' | 'impossible';
@@ -33,7 +34,8 @@ function createGameStore() {
 		max: 1000,
 		turns: 0,
 		gameOver: false,
-		lastGuess: null
+		lastGuess: null,
+		difficulty: null
 	};
 
 	const { subscribe, set, update } = writable<GameState>(initialState);
@@ -50,7 +52,8 @@ function createGameStore() {
 				max: range,
 				turns: 0,
 				gameOver: false,
-				lastGuess: null
+				lastGuess: null,
+				difficulty
 			});
 		},
 

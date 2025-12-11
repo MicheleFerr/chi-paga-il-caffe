@@ -108,7 +108,7 @@
 		</div>
 	</div>
 {:else}
-	<div class="container game-screen">
+	<div class="container game-screen diff-{$gameStore.difficulty}">
 		<div class="turn-counter">Turno {$gameStore.turns + 1}</div>
 
 		<div class="game-layout">
@@ -177,12 +177,29 @@
 		line-height: 1;
 	}
 
-	.range-max {
-		color: var(--accent);
+	/* Colori default */
+	.range-max, .range-min {
+		color: white;
 	}
 
-	.range-min {
-		color: var(--coffee);
+	/* Facile/Medio - Bianco */
+	.diff-easy .range-max,
+	.diff-easy .range-min,
+	.diff-medium .range-max,
+	.diff-medium .range-min {
+		color: white;
+	}
+
+	/* Difficile - Arancio */
+	.diff-hard .range-max,
+	.diff-hard .range-min {
+		color: #ff9500;
+	}
+
+	/* Impossibile - Rosso */
+	.diff-impossible .range-max,
+	.diff-impossible .range-min {
+		color: #ff3b30;
 	}
 
 	.guess-form {
