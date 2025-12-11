@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { gameStore, getRandomLoseMessage } from '$lib/stores/game';
+	import { gameStore, getRandomLoseMessage, difficulties } from '$lib/stores/game';
 	import Confetti from '$lib/components/Confetti.svelte';
 	import Trident from '$lib/components/Trident.svelte';
 	import { onMount } from 'svelte';
@@ -9,17 +9,26 @@
 
 	let rangeKey = $state(0); // Per triggerare animazione
 
-	// Colori per difficoltà
-	const difficultyColors: Record<string, string> = {
-		easy: '#ffffff',
-		medium: '#ffffff',
-		hard: '#ff9500',
-		impossible: '#ff3b30'
-	};
+	// Calcola colore in base a quanto si è ristretto il range (reattivo)
+	let rangeColor = $derived.by(() => {
+		const difficulty = $gameStore.difficulty;
+		if (!difficulty) return '#ffffff';
 
-	function getRangeColor(): string {
-		return difficultyColors[$gameStore.difficulty || 'easy'] || '#ffffff';
-	}
+		const initialRange = difficulties[difficulty].range;
+		const currentRange = $gameStore.max - $gameStore.min;
+		const percentage = (currentRange / initialRange) * 100;
+
+		// > 50% → Bianco
+		// 10-50% → Arancio
+		// < 10% → Rosso
+		if (percentage > 50) {
+			return '#ffffff';
+		} else if (percentage > 10) {
+			return '#ff9500'; // Arancio
+		} else {
+			return '#ff3b30'; // Rosso
+		}
+	});
 
 	let guess = $state('');
 	let error = $state('');
@@ -138,7 +147,7 @@
 			{#key rangeKey}
 				<div
 					class="range-num"
-					style="color: {getRangeColor()}"
+					style="color: {rangeColor}"
 					in:fly={{ y: -50, duration: 800, easing: cubicOut }}
 				>
 					{$gameStore.max}
@@ -170,7 +179,7 @@
 			{#key rangeKey}
 				<div
 					class="range-num"
-					style="color: {getRangeColor()}"
+					style="color: {rangeColor}"
 					in:fly={{ y: 50, duration: 800, easing: cubicOut }}
 				>
 					{$gameStore.min}
